@@ -1,8 +1,7 @@
-.swiper{
-  height: 500px;
+.form-control{
+  display: inline-block !important;
+  width: auto !important;
 }
-.swiper-slide{
-  background: #ebebeb;
-  font-size: 40px;
-  display: flex;
+.hidden{
+  display: none;
 }
