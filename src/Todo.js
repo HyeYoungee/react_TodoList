@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-const Todo = ({data, deleteTodo}) => {
+const Todo = ({data, deleteTodo, update}) => {
 
   const [mode, setMode] = useState('read');
   const [ischecked, setIschecked] = useState(false);
   const [text, setText] = useState(data.text);
 
   let className = 'form-check-label';
-  let formClass = '';
+  let formClass = 'hidden';
 
   if(mode === 'edit'){
     className += 'hidden';
@@ -42,6 +42,10 @@ const Todo = ({data, deleteTodo}) => {
     setMode(val);
   }
 
+  const updateTodo = () => {
+    update(data.id, text);
+  }
+
   return(
 
     // d-flex align-items-center gap-2
@@ -50,27 +54,27 @@ const Todo = ({data, deleteTodo}) => {
         className="form-check-input" 
         type="checkbox" 
         value="" 
-        id={`todo-${data.id}`} 
+        id={`todo${data.id}`} 
         onChange={handleCheckboxClick}
       />
-      <label className={className} style={deco} htmlFor={`todo-${data.id}`}>
+      <label className={className} style={deco} htmlFor={`todo${data.id}`}>
         {text}
       </label>
 
-      <form className={formClass}>
+      <form className={formClass} onSubmit={updateTodo}>
         <input 
           className="form-control" 
           type="text" 
-          placeholder={text} 
+          value={text} 
           onChange={(e)=>{
             handleEdit(e.target.value);
           }}
         />
-        <button type="button" className="btn btn-secondary btn-sm">Update</button>
-        <button type="button" className="btn btn-secondary btn-sm" onClick={()=>{changeMode('read');}}>Cancel</button>
+        <button type="submit" className="btn btn-secondary btn-sm">Update</button>
+        <button type="button" className="btn btn-danger btn-sm" onClick={()=>{changeMode('read');}}>Cancel</button>
 
       </form>
-      <button type="button" className="btn btn-info btn-sm" onClick={todoEdit}>Edit</button>
+      <button type="button" className="btn btn-secondary btn-sm" onClick={todoEdit}>Edit</button>
       <button type="button" className="btn btn-danger btn-sm" onClick={todoDelete}>Delete</button>
     </div>
     

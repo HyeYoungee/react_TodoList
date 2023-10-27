@@ -6,12 +6,9 @@ import Todo from './Todo';
 
 function App() {
 
-  const [todoid, setTodoid] = useState(2);
+  const [todoid, setTodoid] = useState(0);
 
-  const [todo, setTodo] = useState([
-    {id:1, text:'learn web', checked:false},
-    {id:2, text:'get a job', checked:false}
-  ]);
+  const [todo, setTodo] = useState([]);
 
   // const objString = JSON.stringify(todo); //객체, 배열 -> 문자로 변경
   // window.localStorage.setItem('todo', objString); //스토리지에 저장
@@ -25,7 +22,9 @@ function App() {
     if(todoListFromStorage !== null){
       //값이 있다면
       const todoObj = JSON.parse(todoListFromStorage);
+      let lastId = todoObj[todoObj.length -1].id;
       setTodo(todoObj);
+      setTodoid(lastId);
     }
   }
   useEffect(() => {
@@ -39,8 +38,15 @@ function App() {
     setTodo(newTodos);
   }
 
+  const update = (id, val) => {
+    let newTodos = [...todo];
+    let index = newTodos.findIndex(item => (item.id === id));
+    newTodos[index] = {id:id, text:val, checked:false};
+    setTodo(newTodos);
+  }
+
   let todos = todo.map(item => (
-    <Todo data={item} key={item.id} deleteTodo={deleteTodo}/>
+    <Todo data={item} key={item.id} deleteTodo={deleteTodo} update={update}/>
   ));
 
   let addTodo = (value) => {
