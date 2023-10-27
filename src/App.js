@@ -6,7 +6,7 @@ import Todo from './Todo';
 
 function App() {
 
-  const [todoid, setTodoId] = useState(2);
+  const [todoid, setTodoid] = useState(2);
 
   const [todo, setTodo] = useState([
     {id:1, text:'learn web', checked:false},
@@ -47,7 +47,7 @@ function App() {
     let newTodos = [...todo];
     let newId = todoid + 1;
     
-    setTodoId(newId);
+    setTodoid(newId);
     newTodos.push({id:newId, text:value, checked:false});
     setTodo(newTodos);
     document.getElementById('todo').value='';
@@ -71,7 +71,7 @@ function App() {
         // console.log(e.target.todo.value);
         addTodo(e.target.todo.value);
       }}>
-        <Form.Group className="mb-3" controlId="todo1">
+        <Form.Group className="mb-3" controlId="todo">
           <Form.Label>Todo Input</Form.Label>
           <Form.Control type="text" name="todo" placeholder="할 일을 입력하세요" />
         </Form.Group>
@@ -81,6 +81,7 @@ function App() {
       <div>
         { todos }
       </div>
+
     </div>
   );
 }
